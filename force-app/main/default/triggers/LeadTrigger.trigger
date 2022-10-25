@@ -8,5 +8,6 @@ trigger LeadTrigger on Lead (before insert, before update) {
         if (String.isBlank(leadRecord.Industry)){
             leadRecord.addError('The industry cannot be blank.'); 
         }
-    }        
+    }  
+    System.debug('Lead Source updating');       
 }
