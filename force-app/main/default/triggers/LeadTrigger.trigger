@@ -1,5 +1,7 @@
 trigger LeadTrigger on Lead(before insert, before update, after update) {
-  //System.debug('Lead Trigger called');
+  System.debug('Trigger Size: ' + Trigger.size);
+  System.debug('is Trigger: ' + Trigger.isExecuting);
+  System.debug('Operation Type: ' + Trigger.operationType);
   for (Lead leadRecord : Trigger.new) {
     // if lead source is blank, make it other
     if (Trigger.isBefore) {
@@ -11,8 +13,8 @@ trigger LeadTrigger on Lead(before insert, before update, after update) {
     if (
       (leadRecord.Status == 'Closed - Converted' ||
       leadRecord.Status == 'Closed - Not Converted') &&
-      Trigger.oldMap.get(leadRecord.Id).Status == 'Open - Not Contacted')
-     {
+      Trigger.oldMap.get(leadRecord.Id).Status == 'Open - Not Contacted'
+    ) {
       leadRecord.Status.addError('Cannot close an open lead record');
     }
 
