@@ -67,6 +67,7 @@ public with sharing class CTLocationTracingController {
     // list of duplicate records
     List<Location_Tracing__c> duplicates = new List<Location_Tracing__c>();
 
+
     if(existingRecords != null && existingRecords.size() > 0){
         for (Location_Tracing__c trace : existingRecords) {
             if(! mapOfExistingRecords.containsKey(trace.Location__c)){
@@ -88,6 +89,9 @@ public with sharing class CTLocationTracingController {
     }
 
     return duplicates;
+
+
+
 
   }
 }
