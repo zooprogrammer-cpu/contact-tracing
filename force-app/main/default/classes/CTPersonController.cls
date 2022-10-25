@@ -64,4 +64,20 @@ public with sharing class CTPersonController {
     //if no people found on the list, return null
     return null;
   }
+
+  public static Map<String, Integer> getHealthStatusCount() {
+    //using total to alias COUNT(Id)
+    Map<String, Integer> healthCountMap = new Map<String, Integer>();
+    for (AggregateResult ar : [
+      SELECT Health_Status__c, COUNT(Id) total
+      FROM Person__c
+      GROUP BY Health_Status__c
+    ]) {
+      //need to type cast the Health Status and total before adding to the map 
+      String healthStatus = String.valueOf(ar.get('Health_Status__c'));
+      Integer count = Integer.valueOf(ar.get('total'));
+      healthCountMap.put(healthStatus, count);
+    }
+    return healthCountMap; 
+  }
 }
