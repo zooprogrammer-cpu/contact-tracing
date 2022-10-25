@@ -5,7 +5,7 @@ trigger LeadTrigger on Lead (before insert, before update) {
             leadRecord.LeadSource = 'Other';
         }
 
-        if (String.isBlank(leadRecord.Industry)){
+        if (String.isBlank(leadRecord.Industry) && Trigger.isInsert){
             leadRecord.addError('The industry cannot be blank.'); 
         }
     }  
