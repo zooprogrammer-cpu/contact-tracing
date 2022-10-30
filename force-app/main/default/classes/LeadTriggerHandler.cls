@@ -1,4 +1,5 @@
 public class LeadTriggerHandler {
+  public static Boolean alreadyExecuted = false; 
   public static void beforeInsertHandler(List<Lead> newRecords) {
     for (Lead leadRecord : newRecords) {
       if (String.isBlank(leadRecord.LeadSource)) {
@@ -22,6 +23,14 @@ public class LeadTriggerHandler {
       leadTasks.add(leadTask);
     }
     insert leadTasks;
+
+    //insert another lead that causes recursive error
+    // solution is to check if it has aleady executed or not
+    if (LeadTriggerHandler.alreadyExecuted == false){
+      LeadTriggerHandler.alreadyExecuted = true;
+      Lead anotherLead = new Lead(LastName='Another Last Name',FirstName = 'Another First Name',Industry = 'Banking', Status = 'Open - Not Contacted', Company ='ABC Corp', LeadSource = 'Other');
+      insert anotherLead;     
+    }
   }
 
   public static void beforeUpdateHandler(
