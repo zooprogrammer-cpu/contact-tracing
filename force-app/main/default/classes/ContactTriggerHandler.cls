@@ -23,7 +23,7 @@ public class ContactTriggerHandler {
       ) {
         // write automation logic here
         accountIds.add(con.AccountId);
-      } else if (oldContactsMap.get(con.Id).AccountId != con.AccountId) {
+      } if (oldContactsMap.get(con.Id).AccountId != con.AccountId) {
         accountIds.add(con.AccountId);
         accountIds.add(oldContactsMap.get(con.Id).AccountId);
       }
